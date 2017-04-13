@@ -1,74 +1,149 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Weather Status</title>
-    <style>
-        .temp{
-            color: white;
-            font-size:20px;
-            text-align: center;
-            background-color:coral;
-            background-position: 0px 0px;
-        }
-        .hum{
-            color: white;
-            font-size:20px;
-            text-align: center;
-            background-color:dodgerblue
-        }
-        .prsr{
-            color: white;
-            font-size:20px;
-            text-align: center;
-            background-color:darkkhaki;
-        }
-        #value{
-            font-size: 50px;
-        }
-        p{
-            font-size: 30px;
-        }
-    </style>
-    <!-- Include jQuery Mobile stylesheets -->
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-
-
-
-<!-- Include the jQuery Mobile library -->
 <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  </head>
-  <body>
-      <div class="temp">
-          <P id="value">20 *C</P>   
-          <p>Temprature</p>
-      </div>
-      <div class="prsr">
-          <P id="value">123 units</P> <p>Pressure</p>
-      </div>
-      <div class="hum">
-          <P id="value">50 %</P>   
-          <p>Humidity</p>
-      </div>
-      <!-- Include the jQuery Mobile library -->
+
+<style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+#nav {
+    list-style-type:none;
+    margin: 0;
+    padding-right: 40;
+    overflow:hidden;
+    background-color: #333;
+}
+    
+.navbar {
+    
+}
+    
+div.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 300px;
+}
+
+div.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+div.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+}
+</style>
+</head>
+<body>
+
+<ul id="nav">
+    <b><li class="navbar" style="color: white; padding-top: 10px; padding-left: 91px; padding-bottom: 10px; font-size:25px">WMS</li></b>
+</ul>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Temp')" id="defaultOpen"><img src="images/temp.svg" alt="Temp" height="50" width="68"></button>
+  <button class="tablinks" onclick="openCity(event, 'Humid')"><img src="images/hum.svg" alt="Temp" height="50" width="68"></button>
+  <button class="tablinks" onclick="openCity(event, 'Prsr')" align=""><img src="images/prsr.svg" alt="Temp" height="48" width="68"></button>
+</div>
+
+<div id="Temp" class="tabcontent">
+  <h1 align="center">Temprature<br/>°C</h1>
+  <p align="center" style="font-size: 70px;padding">value</p>
+</div>
+
+<div id="Humid" class="tabcontent">
+  <h1 align="center">Humidity<br/>%</h1>
+    <p align="center" style="font-size: 70px">value</p>
+</div>
+
+<div id="Prsr" class="tabcontent">
+  <h1 align="center">Pressure<br/>hpa</h1>
+    <p align="center" style="font-size: 70px">value</p>
+</div>
+
+<ul id="nav">
+    <b><li class="navbar" style="color: white; padding-top: 10px; padding-bottom: 10px; list-style-type:disc">Date</li></b>
+    <b><li class="navbar" style="color: white; padding-top: 10px; padding-bottom: 10px; list-style-type:disc">Time</li></b>
+</ul>
+
 <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+function openCity(evt, param) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(param).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+
       var test=document.getElementsByTagName("p")
+      var temp=document.getElementsByTagName("li")
       console.log(test);
         $(function(){
            $.ajax({
               type: "GET",
-               url: 'https://api.thingspeak.com/channels/236485/feed/last.json?apikey=[read api key]',
+               url: 'https://api.thingspeak.com/channels/236485/feed/last.json?apikey=YWKVPVWJIPK4PVP7',
                success: function(data){
                    console.log('success ',data);
-                   test[0].innerHTML=""+data.field1+" *C";
+                   test[0].innerHTML=""+data.field1;
                    test[2].innerHTML=""+data.field3;
-                   test[4].innerHTML=""+data.field2+" %";
+                   test[1].innerHTML=""+data.field2;
+                   var tea=data.created_at;
+               function convertLocalDateToUTCDate(date) {
+                 date = new Date(date);
+                 var localTime = date.getTime();
+                 date = localTime;
+                 date = new Date(date);
+                 return date;
+               };
+                var kit = ""+convertLocalDateToUTCDate(new Date(tea),false);
+                var day=kit.substring(4,15);
+                var time=kit.substring(16,39);
+                time=time.replace('GMT+0530 (IST)','IST');
+                temp[1].innerHTML = day;
+                temp[2].innerHTML = time;
                } 
            }); 
         });
-  </script>
-  </body>
-</html>
+</script>
+     
+</body>
+</html> 
