@@ -1,9 +1,9 @@
 # Rpi-WMS
 Weather Monitoring System using raspberry pi
 
-sensors used:
+Sensors used:
 * DHT11
 * BMP180
 
-database used: www.thingspeak.com
+Database used: www.thingspeak.com
 
