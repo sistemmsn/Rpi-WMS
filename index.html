@@ -1,149 +1,121 @@
 <!DOCTYPE html>
+
+
 <html>
-<head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-<style>
-* {box-sizing: border-box}
-body {font-family: "Lato", sans-serif;}
-
-#nav {
-    list-style-type:none;
-    margin: 0;
-    padding-right: 40;
-    overflow:hidden;
-    background-color: #333;
-}
     
-.navbar {
+    <head>
+    <meta charset="utf-8">
+      <title>WMS</title>
+      <link rel="stylesheet" href="css/materialize.css"></link>
+      <script type="text/javascript" href="js/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" href="js/materialize.js"></script>
+      <script type="text/javascript" href="js/materialize.min.1.js"></script>
+      <link href="https://fonts.googleapis.com.icon?family=Material+Icons" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1">      
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  </head>
     
-}
+  <body>
     
-div.tab {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 30%;
-    height: 300px;
-}
+      <!--navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <a href="#slide-out" data-activates="slide-out" class="button-collapse" style="padding-left:1%"><i class="material-icons">menu</i></a>
+          <a href="#" class="brand-logo">WMS <i class="material-icons">cloud</i></a>
+        </div>
+      </nav>
+      
+      <!--side nav-->
+      <div class="side-nav">
+      <ul id="slide-out" class="side-nav">
+        <li><a href="#" class="active">Reach out</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="waves-effect" href="#">Amrut</a></li>
+        <li><a class="waves-effect" href="http://www.github.com/jaiimortal">Jaivarsan</a></li>
+        <li><a class="waves-effect" href="http://www.github.com/minosai">Yaswant</a></li>
+      </ul>
+      </div>
+      
+      <!--fixed FAB-->
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue" href="test.html">
+          <i class="large material-icons">replay</i>
+        </a>
+      </div>
+      
+      <!--card-->
+      
+      <div class="row">
+        <div class="col s12 m6 offset-l3">
+          <div class="card">
+            <div class="card-content">
+              <p class="center" id="date_time">date/time</p>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="temp" class="center" style="font-weight:1500"><h1 id="temp_value">Value</h1></div>
+              <div id="prsr" class="center"><h1 id="prsr_value">Value</h1></div>
+              <div id="hum" class="center"><h1 id="hum_value">Value</h1></div>
+            </div>
+            <!--tabs-->
+            <div class="card-tabs white-text">
+              <ul class="tabs tabs-fixed-width blue">
+                <li class="tab"><a href="#temp" class="white-text">Temprature</a></li>
+                <li class="tab"><a href="#prsr" class="white-text">Pressure</a></li>
+                <li class="tab"><a href="#hum" class="white-text">Humidity</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+          
+          /*side nav initialize*/
+          $('.button-collapse').sideNav();
+          
+      </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+              var temp=document.getElementById("temp_value");
+              var prsr=document.getElementById("prsr_value");
+              var hum=document.getElementById("hum_value");
+              var dt=document.getElementById("date_time");
+              console.log(temp);
+              console.log(prsr);
+              console.log(hum);
+              console.log(dt);
+              dt.innerHTML="date - time";
+                $(function(){
+                   $.ajax({
+                      type: "GET",
+                       url: 'https://api.thingspeak.com/channels/236485/feed/last.json?apikey=YWKVPVWJIPK4PVP7',
+                       success: function(data){
+                           console.log('success ',data);
+                           temp.innerHTML=""+data.field1+" °C";
+                           hum.innerHTML=""+data.field2+" %";
+                           prsr.innerHTML=""+data.field3+" hpa";
+                           var tea=data.created_at;
+                       function convertLocalDateToUTCDate(date) {
+                         date = new Date(date);
+                         var localTime = date.getTime();
+                         date = localTime;
+                         date = new Date(date);
+                         return date;
+                       };
+                        var kit = ""+convertLocalDateToUTCDate(new Date(tea),false);
+                        var day=kit.substring(4,15);
+                        var time=kit.substring(16,39);
+                        time=time.replace('GMT+0530 (IST)','IST');
+                        dt.innerHTML=""+day;
+                        console.log("Date: "+day+" Time: "+time);
+                       } 
+                   }); 
+                });
+        </script>
+      
+  </body>
 
-div.tab button {
-    display: block;
-    background-color: inherit;
-    color: black;
-    padding: 22px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-}
-
-div.tab button:hover {
-    background-color: #ddd;
-}
-
-div.tab button.active {
-    background-color: #ccc;
-}
-
-.tabcontent {
-    float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 70%;
-    border-left: none;
-    height: 300px;
-}
-</style>
-</head>
-<body>
-
-<ul id="nav">
-    <b><li class="navbar" style="color: white; padding-top: 10px; padding-left: 91px; padding-bottom: 10px; font-size:25px">WMS</li></b>
-</ul>
-
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'Temp')" id="defaultOpen"><img src="images/temp.svg" alt="Temp" height="50" width="68"></button>
-  <button class="tablinks" onclick="openCity(event, 'Humid')"><img src="images/hum.svg" alt="Temp" height="50" width="68"></button>
-  <button class="tablinks" onclick="openCity(event, 'Prsr')" align=""><img src="images/prsr.svg" alt="Temp" height="48" width="68"></button>
-</div>
-
-<div id="Temp" class="tabcontent">
-  <h1 align="center">Temprature<br/>°C</h1>
-  <p align="center" style="font-size: 70px;padding">value</p>
-</div>
-
-<div id="Humid" class="tabcontent">
-  <h1 align="center">Humidity<br/>%</h1>
-    <p align="center" style="font-size: 70px">value</p>
-</div>
-
-<div id="Prsr" class="tabcontent">
-  <h1 align="center">Pressure<br/>hpa</h1>
-    <p align="center" style="font-size: 70px">value</p>
-</div>
-
-<ul id="nav">
-    <b><li class="navbar" style="color: white; padding-top: 10px; padding-bottom: 10px; list-style-type:disc">Date</li></b>
-    <b><li class="navbar" style="color: white; padding-top: 10px; padding-bottom: 10px; list-style-type:disc">Time</li></b>
-</ul>
-
-<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-function openCity(evt, param) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(param).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-
-document.getElementById("defaultOpen").click();
-
-      var test=document.getElementsByTagName("p")
-      var temp=document.getElementsByTagName("li")
-      console.log(test);
-        $(function(){
-           $.ajax({
-              type: "GET",
-               url: 'https://api.thingspeak.com/channels/236485/feed/last.json?apikey=YWKVPVWJIPK4PVP7',
-               success: function(data){
-                   console.log('success ',data);
-                   test[0].innerHTML=""+data.field1;
-                   test[2].innerHTML=""+data.field3;
-                   test[1].innerHTML=""+data.field2;
-                   var tea=data.created_at;
-               function convertLocalDateToUTCDate(date) {
-                 date = new Date(date);
-                 var localTime = date.getTime();
-                 date = localTime;
-                 date = new Date(date);
-                 return date;
-               };
-                var kit = ""+convertLocalDateToUTCDate(new Date(tea),false);
-                var day=kit.substring(4,15);
-                var time=kit.substring(16,39);
-                time=time.replace('GMT+0530 (IST)','IST');
-                temp[1].innerHTML = day;
-                temp[2].innerHTML = time;
-               } 
-           }); 
-        });
-</script>
-     
-</body>
-</html> 
+</html>
