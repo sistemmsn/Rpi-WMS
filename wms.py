@@ -20,4 +20,5 @@ while True:
             sleep(10)
       except:
             print("Error reading values")
+            sleep(10)
  
