@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "392790991473",
+    "firebase_url": "https://rpi-wms.firebaseio.com",
+    "project_id": "rpi-wms",
+    "storage_bucket": "rpi-wms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392790991473:android:ad9aca633ab1fe78",
+        "android_client_info": {
+          "package_name": "com.minosai.rpi_wms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392790991473-70scvvruae92djoe85ombgkj0ik0sq9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.minosai.rpi_wms",
+            "certificate_hash": "15f1b15ff32abfbde058df2505a3e0f278205a6e"
+          }
+        },
+        {
+          "client_id": "392790991473-8vskj1cu7gel6hmm758m0qidj8h38hsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2mQhKjqFcp_IQCwoMlDDhhEFvIjv7ULk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392790991473-8vskj1cu7gel6hmm758m0qidj8h38hsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

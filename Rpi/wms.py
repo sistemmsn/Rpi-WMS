@@ -20,9 +20,9 @@ while True:
             sensor = BMP085.BMP085()
             prsr=sensor.read_pressure()
             root.child('data').update({
-                  'temperature': temp,
-                  'humidity': hum,
-                  'pressure': prsr 
+                  'temperature': str(temp),
+                  'humidity': str(hum),
+                  'pressure': str(prsr) 
             })
       except:
             print("Error reading values")
