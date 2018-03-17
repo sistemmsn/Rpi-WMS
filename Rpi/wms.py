@@ -20,7 +20,7 @@ while True:
             sensor = BMP085.BMP085()
             prsr=sensor.read_pressure()
             root.child('data').update({
-                  'temprature': temp,
+                  'temperature': temp,
                   'humidity': hum,
                   'pressure': prsr 
             })
