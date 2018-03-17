@@ -1,0 +1,4 @@
+Adafruit_DHT
+Adafruit_BMP.BMP085
+requests
+python-firebase
