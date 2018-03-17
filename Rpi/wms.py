@@ -1,16 +1,31 @@
 import Adafruit_DHT
 import Adafruit_BMP.BMP085 as BMP085
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
 from time import sleep
-import requests
-import python-firebase
+
+cred = credentials.Certificate('FirebaseServiceKey.json')
+firebase_admin.initialize_app(cred, {
+    'databaseURL' : 'https://rpi-wms.firebaseio.com'
+})
+
+root = db.reference()
 
 while True:
       try:
-            hum, temp = Adafruit_DHT.read_retry(11, 27)#DHT_11->11 and 27th GPIO pin
+            hum, temp = Adafruit_DHT.read_retry(11, 27)
             sensor = BMP085.BMP085()
             prsr=sensor.read_pressure()
-            requests.post("http://api.thingspeak.com/update?api_key=[write api key]&field1="+str(temp)+"&field2="+str(hum)+"&field3=1"+str(prsr))
+            root.child('data').update({
+                  'temprature': temp,
+                  'humidity': hum,
+                  'pressure': prsr 
+            })
       except:
             print("Error reading values")
-      sleep(10)
+      sleep(5)
+
+
