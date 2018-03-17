@@ -1,4 +1,4 @@
 Adafruit_DHT
-Adafruit_BMP.BMP085
+Adafruit_BMP
 requests
 python-firebase
